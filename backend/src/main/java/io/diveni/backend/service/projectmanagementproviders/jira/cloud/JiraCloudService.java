@@ -145,7 +145,7 @@ public class JiraCloudService implements ProjectManagementProviderOAuth1 {
     LOGGER.debug("--> createIssue(), projectID={}", projectID);
     try {
       String id =
-          jiraApiClient.createIssue(getJiraConfigs().get(tokenIdentifier), projectID, story);
+          jiraApiClient.createIssue(getJiraConfigs().get(tokenIdentifier), projectID, story, this.getClass().getName());
       LOGGER.debug("<-- createIssue()");
       return id;
     } catch (Exception e) {

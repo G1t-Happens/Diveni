@@ -17,6 +17,9 @@ import io.diveni.backend.model.JiraConfig;
 import io.diveni.backend.model.JiraRequestToken;
 import io.diveni.backend.model.Project;
 import io.diveni.backend.model.UserStory;
+import io.diveni.backend.service.projectmanagementproviders.ProjectManagementProviderOAuth1;
+import io.diveni.backend.service.projectmanagementproviders.jira.cloud.JiraCloudService;
+import io.diveni.backend.service.projectmanagementproviders.jira.server.JiraServerService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -217,10 +220,15 @@ public class JiraApiClient {
    * @return the id of the created issue
    * @throws Exception
    */
-  public String createIssue(JiraConfig config, String projectID, UserStory story) throws Exception {
+  public String createIssue(JiraConfig config, String projectID, UserStory story, String jiraServiceName) throws Exception {
     Map<String, Map<String, Object>> content = new HashMap<>();
     Map<String, Object> fields = new HashMap<>();
-    fields.put("reporter", Map.of("accountId", getCurrentUsername(config)));
+    if (jiraServiceName.equals("JiraCloudService")) {
+      fields.put("reporter", Map.of("accountId", getCurrentUsername(config)));
+    }
+    if (jiraServiceName.equals("JiraServerService")) {
+      fields.put("reporter", Map.of("name", getCurrentUsername(config)));
+    }
     fields.put("issuetype", Map.of("name", "Story"));
     fields.put("project", Map.of("id", projectID));
     fields.put("summary", story.getTitle());
