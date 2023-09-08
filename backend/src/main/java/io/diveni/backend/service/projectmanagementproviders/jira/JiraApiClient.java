@@ -17,9 +17,6 @@ import io.diveni.backend.model.JiraConfig;
 import io.diveni.backend.model.JiraRequestToken;
 import io.diveni.backend.model.Project;
 import io.diveni.backend.model.UserStory;
-import io.diveni.backend.service.projectmanagementproviders.ProjectManagementProviderOAuth1;
-import io.diveni.backend.service.projectmanagementproviders.jira.cloud.JiraCloudService;
-import io.diveni.backend.service.projectmanagementproviders.jira.server.JiraServerService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
